@@ -1,0 +1,39 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+{
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    int n;cin>>n;
+    string que = "1";
+    string res = "";
+    n = n - 1;
+    while(n--)
+    {
+        int count = 0;char c = que[0];
+        res = "";
+        for (int i = 0; i < que.size();i++)
+        {
+            
+            if(c==que[i])
+            {
+                count++;
+            }
+            else
+            {
+                res = res + to_string(count) + que[i - 1];
+                c = que[i];
+                count = 1;
+            }
+            if(i==que.size()-1)
+            {
+                res = res + to_string(count) + que[i];
+
+            }
+        }
+        que = res;
+    }
+    cout << que;
+
+    return 0;
+}
