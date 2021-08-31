@@ -1,0 +1,60 @@
+
+que--
+https://www.geeksforgeeks.org/find-a-specific-pair-in-matrix/
+
+
+
+
+#include<bits/stdc++.h>
+using namespace std;
+#define n 5
+int spiral(int mat[n][n])
+{
+    int m = (n + 1) / 2;
+    int s1 = 0, e1 = n - 1, s2 = 1, e2 = n - 1, s3 = n - 2, e3= 0, s4 = n - 2, e4 = 1;
+    while(m--)
+    {
+        for (int i = s1; i <= e1;i++)
+        {
+            cout << mat[s1][i] << " ";
+        }
+        s1++;
+        e1--;
+        for (int i = s2; i <= e2;i++)
+        {
+            cout << mat[i][e2] << " ";
+        }
+        s2++;
+        e2--;
+        for (int i = s3; i >= e3;i--)
+        {
+            cout << mat[s3+1][i] << " ";
+        }
+        s3--;
+        e3++;
+        for (int i = s4; i >= e4;i--)
+        {
+            cout << mat[i][e4-1] << " ";
+        }
+        s4--;
+        e4++;
+    }
+    return 0;
+}
+
+int main()
+{
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    int mat[n][n];
+    for (int i = 0; i < n;i++)
+    {
+        for (int j = 0; j < n;j++)
+        {
+            cin >> mat[i][j];
+        }
+    }
+    spiral(mat);
+
+    return 0;
+}
