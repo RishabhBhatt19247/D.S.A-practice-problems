@@ -1,0 +1,40 @@
+--que--
+https://www.geeksforgeeks.org/common-elements-in-all-rows-of-a-given-matrix/
+
+
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+{
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    int r,c;
+    cin>>r>>c;
+    unordered_map<int, int> mp;
+    int mat[r][c];
+    for (int i = 0; i < r;i++)
+    {
+        for (int j = 0; j < c;j++)
+        {
+            cin >> mat[i][j];
+        }
+    }
+
+    for (int i = 0; i < r;i++)
+    {
+        for (int j = 0; j < c;j++)
+        {
+            if(mp[mat[i][j]]==i)
+            {
+                mp[mat[i][j]]++;
+            }
+            if(i==r-1 && mp[mat[i][j]]==r)
+            {
+                cout << mat[i][j] << " ";
+            }
+          
+        }
+    }
+
+    return 0;
+}
