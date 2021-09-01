@@ -1,0 +1,54 @@
+que--
+https://www.geeksforgeeks.org/maximum-product-subset-array/
+
+
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+{
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    int n,zero=0,p=1,negative=0,absmin=INT_MIN;
+    cin >> n;
+    int arr[n];
+    for (int i = 0; i < n;i++)
+    {
+        cin >> arr[i];
+    }
+    for (int i = 0; i < n;i++)
+    {
+        if(arr[i]==0)
+        {
+            zero++;
+        }
+        else if(arr[i]>0)
+        {
+            p = p * arr[i];
+        }
+        else
+        {
+            negative++;
+            p = p * arr[i];
+            if(absmin<arr[i])
+            {
+               absmin = arr[i];
+            }
+        }
+
+    }
+    if(zero + negative  ==n && negative ==1)
+    {
+        cout << 0;
+    }
+    else if(negative %2 ==0)
+    {
+        cout << p;
+    }
+    else
+    {
+    
+        cout << p / absmin ;
+    }
+
+    return 0;
+}
