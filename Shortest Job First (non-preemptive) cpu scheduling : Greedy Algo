@@ -1,0 +1,84 @@
+que----
+
+https://www.geeksforgeeks.org/program-for-shortest-job-first-or-sjf-cpu-scheduling-set-1-non-preemptive/
+
+
+
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+{
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    int n;cin>>n;
+    int arr[n][5];
+    for (int i = 0; i < n;i++)
+    {
+        cin >> arr[i][0] >> arr[i][1] >> arr[i][2];
+    }
+    
+
+    for (int j = 0; j < n;j++)
+    {
+        int minindex=j,i = j+1;
+        for (; i < n; i++)
+
+        {
+            if (arr[minindex][1] > arr[i][1])
+            {
+                minindex = i;
+            }
+        }
+        swap(arr[minindex][0], arr[j][0]);
+        swap(arr[minindex][1], arr[j][1]);
+        swap(arr[minindex][2], arr[j][2]);
+    }
+    
+    
+    for (int i = 1; i < n;i++)
+    {
+        int minburstindex = i;
+        int limit = arr[i-1][2] + arr[i-1][1];
+        int j = i;
+        while (limit >= arr[j][1])
+        {
+            if (arr[minburstindex][2] > arr[j][2])
+            {
+                minburstindex = j;
+            }
+            j++;
+        }
+        swap(arr[minburstindex][0], arr[i][0]);
+        swap(arr[minburstindex][1], arr[i][1]);
+        swap(arr[minburstindex][2], arr[i][2]);
+    }
+   //first process
+    arr[0][3] = 0;
+    arr[0][4] = arr[0][2] + arr[0][3];
+
+    //other Process
+    for (int i = 1; i < n;i++)
+    {
+        if(arr[i - 1][1] + arr[i - 1][4]>arr[i][1])
+        {
+            arr[i][3] = (arr[i - 1][1] + arr[i - 1][4]) - arr[i][1];
+        }
+        else
+        {
+            arr[i][3] = 0;
+        }
+        arr[i][4] = arr[i][2] + arr[i][3];
+
+
+    }
+
+    //print
+    cout << "Id:"<<"arrival:"<< "burst:"<<"wait:" << "turnaround"<<"\n";
+
+    for (int i = 0; i < n; i++)
+    {
+        cout << arr[i][0] << " : " << arr[i][1] << " : " << arr[i][2] << " : " << arr[i][3] << " : " << arr[i][4] << "\n";
+        }
+
+        return 0;
+}
