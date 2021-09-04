@@ -1,0 +1,46 @@
+que--
+https://www.geeksforgeeks.org/program-to-find-whether-a-no-is-power-of-two/
+
+
+//without Bit Manipulation
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+{
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    int n;
+    cin >> n;
+    if(floor(log2(n))==ceil(log2(n)))
+    {
+        cout << "YES";
+    }
+    else
+    {
+        cout << "NO";
+    }
+    return 0;
+}
+
+
+// WITH bIT MANIPULATION
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+{
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    int n;
+    cin >> n;
+    int rightmostBit = n & ~(n - 1);
+    int ans = ~rightmostBit & n;
+    if(ans == 0)
+    {
+        cout << "YES";
+    }
+    else
+    {
+        cout << "NO";
+    }
+    return 0;
+}
