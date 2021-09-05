@@ -1,0 +1,38 @@
+https://www.geeksforgeeks.org/divide-two-integers-without-using-multiplication-division-mod-operator/
+
+
+
+
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+{
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    long long int divident ,divisor;
+    cin >> divident>>divisor;
+    long long int temp=0, quetient = 0;
+    int sign;
+    if(divident*divisor>0)
+    {
+        sign = 1;
+    }
+    else
+    {
+        sign = -1;
+    }
+    divident = abs(divident);
+    divisor = abs(divisor);
+    for (int i = 31; i >= 0;i--)
+    {
+        if(temp+(divisor<<i) <= divident )
+        {
+            temp = temp + (divisor<<i);
+            quetient = quetient | (1ll << i);
+            
+        }
+    }
+    cout << quetient*sign;
+
+    return 0;
+}
