@@ -1,0 +1,118 @@
+https://www.geeksforgeeks.org/connect-n-ropes-minimum-cost/
+
+
+
+#include<bits/stdc++.h>
+using namespace std;
+class minheap
+{
+  public:  
+    int currentsize;
+    int capacity;
+    int *nodearr;
+};
+minheap* declareminheap(int capacity)
+{
+    minheap *minhp = new minheap;
+    minhp->capacity = capacity;
+    minhp->currentsize = 0;
+    minhp->nodearr = new int[capacity];
+    return minhp;
+}
+void swapnode(int* a, int* b)
+{
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
+ 
+void minheapify(minheap* minhp,int i)
+{
+    int smallest = i;
+    int left = 2 * i + 1;
+    int right = 2 * i + 2;
+    if(left<minhp->currentsize && minhp->nodearr[left]<minhp->nodearr[smallest])
+    {
+        smallest = left;
+    }
+    if(right<minhp->currentsize && minhp->nodearr[right]<minhp->nodearr[smallest])
+    {
+        smallest = right;
+    }
+    if(smallest!=i)
+    {
+        swapnode(&minhp->nodearr[i], &minhp->nodearr[smallest]);
+        minheapify(minhp, smallest);
+    }
+}
+void buildminheap(minheap* minhp)
+{
+    int n=minhp->currentsize-1;
+    for (int i = (n - 1) / 2; i >= 0;i--)
+    {
+        minheapify(minhp, i);
+    }
+}
+
+minheap *makeminheap(int arr[], int n)
+{
+    minheap *minhp = declareminheap(n);
+    for (int i = 0; i < n;i++)
+    {
+        minhp->nodearr[i] = arr[i];
+       
+    }
+    minhp->currentsize = n;
+    buildminheap(minhp);
+    return minhp;
+}
+
+int issizeone(minheap* minhp)
+{
+    return (minhp->currentsize == 1);
+}
+
+int findmin(minheap* minhp)
+{
+    int temp = minhp->nodearr[0];
+    minhp->nodearr[0] = minhp->nodearr[minhp->currentsize - 1];
+    --minhp->currentsize;
+    minheapify(minhp, 0);
+    return temp;
+}
+
+void insertminheap(minheap* minhp, int val)
+{
+    ++minhp->currentsize;
+    int i = minhp->currentsize - 1;
+    while(i && (val< minhp->nodearr[(i-1)/2]))
+    {
+        minhp->nodearr[i]=minhp->nodearr[(i-1)/2];
+        i = (i - 1) / 2;
+    }
+    minhp->nodearr[i] = val;
+}
+
+int mincost(int arr[],int n)
+{
+    int ans = 0;
+    minheap *minhp = makeminheap(arr, n);
+    while(!issizeone(minhp))
+    {
+        int min1 = findmin(minhp);
+        int min2 = findmin(minhp);
+        ans = ans + (min1 + min2);
+        insertminheap(minhp, min1 + min2);
+    }
+    return ans;
+}
+int main()
+{
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    int arr[] = {4, 3, 2, 6};
+    int n = sizeof(arr) / sizeof(arr[0]);
+    cout << mincost(arr,n);
+
+    return 0;
+}
