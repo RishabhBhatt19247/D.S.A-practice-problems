@@ -1,0 +1,33 @@
+https://www.geeksforgeeks.org/connect-n-ropes-minimum-cost/
+
+
+
+
+#include<bits/stdc++.h>
+using namespace std;
+int mincost(int arr[],int n)
+{
+    priority_queue<int, vector<int>, greater<int>> pq(arr, arr + n);
+    int ans = 0;
+    while(pq.size()>1)
+    {
+        int min1 = pq.top();
+        pq.pop();
+        int min2 = pq.top();
+        pq.pop();
+        ans=ans+(min2+min1);
+        pq.push(min1+min2);
+
+    }
+    return ans;
+}
+int main()
+{
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    int len[] = { 4, 3, 2, 6 };
+    int size = sizeof(len) / sizeof(len[0]);
+    cout << "Total cost for connecting ropes is " << mincost(len, size);
+    
+    return 0;
+}
