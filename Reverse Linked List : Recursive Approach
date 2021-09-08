@@ -1,0 +1,85 @@
+
+
+
+#include<bits/stdc++.h>
+using namespace std;
+
+class node
+{
+   public: 
+    int data;
+    node *next;
+    node(int data)
+    {
+        this->data = data;
+        next = NULL;
+    }
+};
+
+class linkedlist
+{
+  public: 
+    node *head;
+    linkedlist() 
+    {
+        head = NULL;
+    }
+
+
+    void reverse(node *p)
+    {
+        if(p->next==NULL)
+        {
+            head=p;
+            return;
+        }
+        reverse(p->next);
+        node *q = p->next;
+        q->next = p;
+        p->next = NULL;
+    }
+ 
+    /* Function to print linked list */
+    void print()
+    {
+        class node* temp = head;
+        while (temp != NULL) {
+            cout << temp->data << " ";
+            temp = temp->next;
+        }
+    }
+ 
+ 
+
+
+      node* push(int data)
+      {
+        node *temp = new node(data);
+        temp->next=head;
+        head = temp;
+        return head;
+      }
+
+};
+
+
+int main()
+{
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    linkedlist myll;
+    node * p=myll.push(20);
+    p=myll.push(4);
+    p=myll.push(15);
+    p=myll.push(85);
+    cout << "initial"<< "\n";
+    myll.print();
+    cout << "\n";
+
+    myll.reverse(p);
+
+    cout << "final"<< "\n";
+    myll.print();
+
+    return 0;
+}
