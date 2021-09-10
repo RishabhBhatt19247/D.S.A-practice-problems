@@ -1,0 +1,29 @@
+
+
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+{
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    int n;
+    cin >> n;
+    float bits=log2(n);
+    if(ceil(bits)==floor(bits))
+    {
+        bits++;
+    }
+    bits = ceil(bits);
+    int i = 0,ans=0,multi=n;
+    while(i<bits)
+    {
+        if(multi & 1)
+        {
+            ans = ans + (n << i);
+        }
+        multi=multi >> 1;
+        i++;
+    }
+    cout << ans;
+    return 0;
+}
