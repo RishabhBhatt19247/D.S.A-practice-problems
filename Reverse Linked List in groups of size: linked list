@@ -1,0 +1,74 @@
+#include<bits/stdc++.h>
+using namespace std;
+class node 
+{
+    public:
+        int data;
+        node *next;
+};
+
+node* reverse(node* head,int k)
+{
+    if(head==NULL)
+    {
+        return NULL;
+    }
+    node *current = head;
+    node *next = NULL;
+    node *prev = NULL;
+    int count = 0;
+    while(current!=NULL && count<k)
+    {
+        next = current->next;
+        current->next = prev;
+        prev = current;
+        current = next;
+        count++;
+    }
+    if(next!=NULL)
+    {
+        head->next = reverse(next, k);
+    }
+
+    return prev;
+}
+
+void push(node** head,int data)
+{
+    node *newnode = new node();
+    newnode->data = data;
+    newnode->next = (*head);
+    (*head) = newnode;
+}
+void print(node* temp)
+{
+    while(temp!=NULL)
+    {
+        cout << temp->data<<" ";
+        temp=temp->next;
+    }
+}
+
+int main()
+{
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    node *head = NULL;
+    push(&head, 9);
+    push(&head, 8);
+    push(&head, 7);
+    push(&head, 6);
+    push(&head, 5);
+    push(&head, 4);
+    push(&head, 3);
+    push(&head, 2);
+    push(&head, 1);
+    cout <<"Initial"<< "\n";
+    print(head);
+    cout << "\n";
+    head = reverse(head, 3);
+    cout <<"Final"<< "\n";
+    print(head);
+
+    return 0;
+}
