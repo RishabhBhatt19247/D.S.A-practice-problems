@@ -1,0 +1,51 @@
+
+
+#include<bits/stdc++.h>
+using namespace std;
+class node
+{ 
+ public:
+    int data;
+    node* next;
+    int flag;
+};
+bool detect(node* temp)
+{
+    while(temp!=NULL)
+    {
+        if(temp->flag==1)
+        {
+            return true;
+        }
+        temp->flag = 1;
+        temp = temp->next;
+    }
+    return false;
+}
+void push(node** head,int value)
+{
+    node *newnode = new node;
+    newnode->data = value;
+    newnode->flag = 0;
+    newnode->next = (*head);
+    (*head) = newnode;
+}
+int main()
+{
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    node *head = NULL;
+    push(&head, 20);
+    push(&head, 4);
+    push(&head, 15);
+    push(&head, 10);
+    head->next->next->next->next = head;
+    if(detect(head))
+    {
+        cout << "loop found";
+    }
+    else{
+        cout << " no loop ";
+    }
+    return 0;
+}
