@@ -1,0 +1,59 @@
+#include<bits/stdc++.h>
+using namespace std;
+class node
+{  public:
+    int data;
+    node *left,*right;
+};
+
+
+void printlevord(node *root)
+{
+    if(root==NULL)
+    {
+        return;
+    }
+    queue<node *> q;
+    q.push(root);
+    while(q.empty()==false)
+    {
+        node *temp = q.front();
+        cout << temp->data << " ";
+        q.pop();
+
+        if(temp->left!=NULL)
+        {
+            q.push(temp->left);
+        }
+        if(temp->right!=NULL)
+        {
+            q.push(temp->right);
+        }
+
+        
+    }
+    
+}
+
+
+node* getnode(int data)
+{
+    node *newnode = new node();
+    newnode->data = data;
+    newnode->left = NULL;
+    newnode->right = NULL;
+    return newnode;
+}
+
+int main()
+{
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    node *root = getnode(1);
+    root->left = getnode(2);
+    root->right = getnode(3);
+    root->left->left = getnode(4);
+    root->left->right = getnode(5);
+    printlevord(root);
+    return 0;
+}
