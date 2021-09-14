@@ -1,0 +1,81 @@
+#include<bits/stdc++.h>
+using namespace std;
+class node
+{
+   public:
+    int data;
+    node *left, *right;
+};
+
+
+
+void levelprinting(node* root,int level)
+{
+    if(root==NULL)
+    {
+        return;
+    }
+    if(level==1)
+    {
+       cout << root->data << " ";
+    }
+    else if(level>1)
+    {
+        levelprinting(root->left, level - 1);
+        levelprinting(root->right, level - 1);
+    }
+}
+
+int height(node* temp)
+{
+    if(temp==NULL)
+    {
+        return 0;
+    }
+    else
+    {
+        int lefth = height(temp->left);
+        int righth = height(temp->right);
+        if(lefth > righth)
+        {
+            return lefth + 1;
+        }
+        else
+        {
+            return righth + 1;
+        }
+
+    }
+    
+}
+
+void printlevord(node* root)
+{
+    int h = height(root);
+    for (int i = 1; i <= h;i++)
+    {
+        levelprinting(root, i);
+    }
+}
+
+node* getnode(int data)
+{
+    node *newnode = new node();
+    newnode->data = data;
+    newnode->left = NULL;
+    newnode->right = NULL;
+    return newnode;
+}
+
+int main()
+{
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    node *root = getnode(1);
+    root->left = getnode(2);
+    root->right = getnode(3);
+    root->left->left = getnode(4);
+    root->left->right = getnode(5);
+    printlevord(root);
+    return 0;
+}
