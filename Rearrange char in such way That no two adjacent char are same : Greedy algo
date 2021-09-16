@@ -1,0 +1,71 @@
+https://www.geeksforgeeks.org/rearrange-characters-string-no-two-adjacent/
+
+
+#include<bits/stdc++.h>
+using namespace std;
+char maxcountchar(vector<int> count)
+{
+    char ch;
+    int maxi = count[0];
+    for (int i = 1; i < 26;i++)
+    {
+        if(count[i]>maxi)
+        {
+            maxi = count[i];
+            ch = 'a' + i;
+        }
+    }
+    return ch;
+}
+string rearrange(string str)
+{
+    int n = str.size();
+    if(n==0)
+    {
+        return " ";
+    }
+    vector<int> count(26, 0);
+    for(auto ch : str)
+    {
+        count[ch - 'a']++;
+    }
+    char mostfreqChar = maxcountchar(count);
+    int Hfreq = count[mostfreqChar-'a'];
+    if(Hfreq>(n+1)/2)
+    {
+        return " ";
+    }
+    string res(n ,' ');
+    int index = 0;
+    while(Hfreq)
+    {
+        res[index] = mostfreqChar;
+        index = index + 2;
+        Hfreq--;
+    }
+    count[mostfreqChar - 'a']=0;
+    for (int i = 0; i < 26;i++)
+    {
+        while(count[i])
+        {
+            index = (index >= n) ? 1 : index;
+            res[index] = i + 'a';
+            index = index + 2;
+            count[i]--;
+        }
+    }
+    return res;
+}
+int main()
+{
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    string str = "bbbaa";
+    string res = rearrange(str);
+    if (res == "")
+        cout << "Not valid string" << endl;
+    else
+        cout << res << endl;
+
+    return 0;
+}
