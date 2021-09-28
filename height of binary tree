@@ -1,0 +1,49 @@
+//height of binary tree
+
+
+#include<bits/stdc++.h>
+using namespace std;
+
+class node
+{
+    public:
+        node* left;
+        node* right;
+        int data;
+};
+
+int findheight(node* root)
+{
+    if(root==NULL || root->left==NULL ||root->right==NULL)
+    {
+        return 1;
+    }
+    return (1+max(findheight(root->left)  ,  findheight(root->right)));
+}
+ node* newnode(int data)
+ {
+     node *nayamall = new node;
+     nayamall->data = data;
+     nayamall->left = NULL;
+     nayamall->right = NULL;
+     return nayamall;
+ }
+int main()
+{
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    node *root = newnode(1);
+    root->left = newnode(2);
+    root->right = newnode(3);
+    root->left->left = newnode(4);
+    root->left->right = newnode(5);
+    root->right->left = newnode(9);
+    root->right->right = newnode(8);
+    root->left->right->left = newnode(6);
+    root->left->right->right = newnode(7);
+
+
+    cout<<findheight(root);
+
+    return 0;
+}
