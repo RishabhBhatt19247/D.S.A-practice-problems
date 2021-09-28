@@ -1,0 +1,124 @@
+//quicksorting in linked list
+
+
+
+
+#include<bits/stdc++.h>
+using namespace std;
+class node
+{
+    public:
+    int data;
+    node *next;
+};
+
+node* getendnode(node * cur)
+{
+    while(cur!=NULL && cur->next!=NULL)
+    {
+        cur = cur->next;
+    }
+    return cur;
+}
+
+node* partitionList(node* head,node* end, node** newhead,node** newend)
+{
+    node *pivot = end;
+    node *prev = NULL , *cur = head, *tail = pivot;
+    while(cur!=pivot)
+    {
+        if(cur->data<pivot->data)
+        {
+            if(*newhead==NULL)
+            {
+                *newhead = cur;
+            }
+            prev = cur;
+            cur = cur->next;
+        }
+        else
+        {
+            if(prev)
+            {
+                prev->next = cur->next;
+            }
+            node *temp = cur->next;
+            cur->next = NULL;
+            tail->next = cur;
+            tail = cur;
+            cur = temp;
+        }
+    }
+    if(*newhead==NULL)
+    {
+        *newhead = pivot;
+    }
+    *newend = tail;
+    return pivot;
+}
+
+node* quicksortingRec(node* head, node* end)
+{
+    if(!head || head==end )
+    {
+        return head;
+    }
+    node *newhead = NULL;
+    node *newend = NULL;
+    node *pivot = partitionList(head, end, &newhead, &newend);
+    if(newhead!=pivot)
+    {
+        node *temp = newhead;
+        while(temp->next!=pivot)
+        {
+            temp = temp->next;
+        }
+        temp->next = NULL;
+        newhead = quicksortingRec(newhead, temp);
+        temp = getendnode(newhead);
+        temp->next = pivot;
+    }
+    pivot->next = quicksortingRec(pivot->next, newend);
+    return newhead;
+}
+
+void quicksort(node** head)
+{
+    *head = quicksortingRec(*head, getendnode(*head));
+}
+
+void push(node** head,int data )
+{
+    node *newnode = new node;
+    newnode->data = data;
+    newnode->next = *head;
+    *head = newnode;
+}
+
+void printlist(node* temp)
+{
+    while(temp!=NULL)
+    {
+        cout << temp->data<<" ";
+        temp = temp->next;
+    }
+    cout << "\n";
+}
+
+int main()
+{
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    node *head = NULL;
+    push(&head, 5);
+    push(&head, 20);
+    push(&head, 4);
+    push(&head, 3);
+    push(&head, 30);
+    cout << "linked list before sorting \n";
+    printlist(head);
+    quicksort(&head);
+    cout << "linked list after sorting\n";
+    printlist(head);
+    return 0;
+}
